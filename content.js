@@ -23,6 +23,7 @@ chrome.storage.local.get("lastActivationTimestamp", (result) => {
   lastTimeActivated = result.lastActivationTimestamp;
 });
 
-if (lastTimeActivated - Date.now() > ONE_DAY_MS_CONTENT) {
+if (Date.now()- lastTimeActivated > ONE_DAY_MS_CONTENT) {
   document.querySelector("body").style.filter = "blur(5px)";
+  chrome.storage.local.set({ isSolved: false });
 }
