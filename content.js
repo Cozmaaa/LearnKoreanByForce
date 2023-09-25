@@ -20,10 +20,16 @@ chrome.storage.local.get("isSolved", (result) => {
 });
 
 chrome.storage.local.get("lastActivationTimestamp", (result) => {
+  //console.log(result.lastActivationTimestamp);
   lastTimeActivated = result.lastActivationTimestamp;
+  //console.log(Date.now()-lastTimeActivated);
+  if (Date.now()- lastTimeActivated > ONE_DAY_MS_CONTENT) {
+
+    document.querySelector("body").style.filter = "blur(5px)";
+    chrome.storage.local.set({ isSolved: false });
+
+  
+  }
 });
 
-if (Date.now()- lastTimeActivated > ONE_DAY_MS_CONTENT) {
-  document.querySelector("body").style.filter = "blur(5px)";
-  chrome.storage.local.set({ isSolved: false });
-}
+
